@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота 25: Події</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .task-container {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 5px solid #2196F3;
+    }
+    h2 { margin-top: 0; color: #333; }
+    button {
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button:hover { background-color: #0b7dda; }
+    input { padding: 8px; font-size: 16px; width: 60%; }
+    .output-box {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #eef;
+      border: 1px dashed #99f;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Лабораторна робота 25</h1>
+
+  <div class="task-container">
+    <h2>Завдання 1: Подія click</h2>
+    <p>Натисніть кнопку, щоб побачити повідомлення.</p>
+    <button id="btnTask1">Натисни мене</button>
+  </div>
+
+  <div class="task-container">
+    <h2>Завдання 2: Подія input</h2>
+    <p>Введіть текст, і він з'явиться нижче в реальному часі.</p>
+    <input type="text" id="inputTask2" placeholder="Друкуйте тут...">
+    <div id="outputTask2" class="output-box">Тут буде ваш текст...</div>
+  </div>
+
+  <div class="task-container">
+    <h2>Завдання 3: Mouseover та Mouseout</h2>
+    <p>Наведіть курсор на зображення.</p>
+    <img id="imgTask3" src="https://placehold.co/300x200/orange/white?text=Зображення+1" alt="Картинка">
+  </div>
+
+  <div class="task-container">
+    <h2>Завдання 4: Подія keydown</h2>
+    <p>Натисніть будь-яку клавішу у полі вводу (відкрийте консоль F12 також).</p>
+    <input type="text" id="inputTask4" placeholder="Натисніть клавішу...">
+    <div id="logTask4" class="output-box">Код клавіші: -</div>
+  </div>
+
+  <div class="task-container">
+    <h2>Завдання 5: Таймер (Click)</h2>
+    <p>Натисніть "Старт", щоб запустити таймер.</p>
+    <button id="btnTask5">Старт</button>
+    <p style="font-size: 24px; font-weight: bold;">Час: <span id="timerDisplay">0</span> сек</p>
+  </div>
+
+  <script>
+    // ЗАВДАННЯ 1: Click 
+    {
+      const btn = document.getElementById('btnTask1');
+      btn.addEventListener('click', function() {
+        alert('Завдання 1: Кнопка була натиснута!');
+      });
+    }
+
+    // ЗАВДАННЯ 2: Input 
+    {
+      const input = document.getElementById('inputTask2');
+      const output = document.getElementById('outputTask2');
+
+      input.addEventListener('input', function(event) {
+        output.textContent = event.target.value;
+      });
+    }
+
+    // ЗАВДАННЯ 3: Mouseover/Mouseout 
+    {
+      const image = document.getElementById('imgTask3');
+      
+      // Посилання на картинки (заглушки)
+      const img1 = "https://placehold.co/300x200/orange/white?text=Зображення+1";
+      const img2 = "https://placehold.co/300x200/green/white?text=Зображення+2";
+
+      image.addEventListener('mouseover', function() {
+        image.src = img2; 
+        image.style.cursor = "pointer";
+      });
+
+      image.addEventListener('mouseout', function() {
+        image.src = img1; 
+      });
+    }
+
+    // ЗАВДАННЯ 4: Keydown 
+    {
+      const input = document.getElementById('inputTask4');
+      const log = document.getElementById('logTask4');
+
+      input.addEventListener('keydown', function(event) {
+        console.log('Натиснуто:', event.code); 
+        log.textContent = `Код клавіші: ${event.code} (Клавіша: ${event.key})`;
+      });
+    }
+
+    // ЗАВДАННЯ 5: Таймер
+    {
+      const btn = document.getElementById('btnTask5');
+      const display = document.getElementById('timerDisplay');
+      
+      let time = 0;
+      let timerInterval = null;
+
+      btn.addEventListener('click', function() {
+        
+        if (!timerInterval) {
+          btn.textContent = "Таймер йде...";
+          btn.disabled = true; 
+          
+          timerInterval = setInterval(function() {
+            time++;
+            display.textContent = time;
+          }, 1000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
